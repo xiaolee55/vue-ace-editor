@@ -13,10 +13,14 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    rules: [{
-      test: /\.vue$/,
-      use: ["vue-loader"] 
-    }]
+    rules: [
+      {
+        test: /\.css$/,
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+      },{
+        test: /\.vue$/,
+        use: ["vue-loader"] 
+      }]
   },
   plugins: [
     new HtmlWebpackPlugin({

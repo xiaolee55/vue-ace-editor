@@ -1,7 +1,7 @@
-import Watcher from './watcher'
+import OptionsWatcher from './watcher'
 
-function factory(cb) {
- return new Watcher(cb) 
+function factory() {
+ return new OptionsWatcher() 
 }
 
 export default factory

@@ -1,17 +1,20 @@
-//封装对ace自定义属性的监控
-function Watcher(cb) {
+import AceEvent from './ace_event'
+
+function OptionsWatcher() {
   this.immediate = true
+  this.deep = true
   this.handler = function() {
-    const newVal = arguments[0]
-    const oldVal = arguments[1]
-    const context = this
-    
-    if(newVal!=oldVal) {
-      setTimeout(() => {
-        context['ace'][cb]? context['ace'][cb](newVal):context['ace']["session"][cb](newVal)
-      }, 50);
-    }
+    const options = arguments[0]
+    setTimeout(() => {
+      const context = this.ace
+      const oldOptions = context.getOptions()
+      const newOptions = Object.assign({},oldOptions,options)
+      context.setOptions(newOptions)     
+      context.session.setBreakpoint(1)
+      context.getSession().setUseWrapMode(true);
+      options['readOnly'] === true? AceEvent._hideCursor(context) : ''  //如果是只读模式则这里处理隐藏光标
+    }, 50);
   }
 }
 
-export default Watcher
+export default OptionsWatcher

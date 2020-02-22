@@ -1,7 +1,6 @@
 <template>
   <div>
-    <ace :font-size="num" :theme="theme" :mode="'c_cpp'" v-model="content"></ace>
-    <!-- <ace  :theme="theme2" :mode="'javascript'" v-model="content"></ace> -->
+    <ace  v-model="content" :options="options"></ace>
     <button @click="create">增加</button>
     <input type="text" v-model="content">
   </div>
@@ -11,15 +10,23 @@
 export default {
   data() {
     return {
-      num: 20,
-      theme: "github",
-      theme2: 'gob',
+      options: {
+        fontSize: 18,
+        theme: "ace/theme/github",
+        mode: "ace/mode/c_cpp",
+        // readOnly: true,
+        // highlightActiveLine: false,
+        // highlightGutterLine: false,
+        // showGutter: false,
+        // showPrintMargin: false
+      },
       content: ''
     }
   },
   methods: {
     create() {
-      this.num++
+      this.options.fontSize++
+      this.options.readOnly = false
     }
   },
 }
